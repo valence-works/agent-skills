@@ -44,7 +44,13 @@ cp -R skills/sipke-voice ~/.agents/skills/
 
 `$CODEX_HOME/skills` also still loads, but Codex marks it a deprecated user location kept for backward compatibility, so prefer `~/.agents/skills`.
 
-Claude Code reads the same directory unmodified — `name` and `description` mean the same thing in both tools — from `~/.claude/skills/NAME/` or `<repo>/.claude/skills/NAME/`.
+Claude Code reads the same directory unmodified, from `~/.claude/skills/NAME/` or
+`<repo>/.claude/skills/NAME/`. What makes one directory serve both is narrower than
+identical metadata: each tool derives a skill's name from its containing directory, and
+both match a task against the `description` in a `---`-delimited YAML frontmatter block.
+Codex requires that `description` be non-empty and caps a supplied `name` at 64
+characters; a `name` that disagrees with its directory is the one field that does not
+travel, so keep the two equal, as the skills here do.
 
 The skill is intentionally portable and keeps project-specific product context out of the reusable methodology. Provide that context separately in the project mission prompt and repository instructions.
 
